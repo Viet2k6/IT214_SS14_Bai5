@@ -1,21 +1,34 @@
 package com.example.sagacombo.controller;
-
-import com.example.sagacombo.service.ComboOrchestrator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.sagacombo.model.ComboOrder;
+import com.example.sagacombo.model.ComboOrderRequest;
+import com.example.sagacombo.orchestrator.ComboOrderOrchestrator;
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/combo")
 public class ComboController {
+    private final ComboOrderOrchestrator orchestrator;
 
-    @Autowired
-    private ComboOrchestrator comboOrchestrator;
+    public ComboController(ComboOrderOrchestrator orchestrator) {
+        this.orchestrator = orchestrator;
+    }
 
     @PostMapping("/book")
-    public String bookCombo(@RequestParam(defaultValue = "SUCCESS") String scenario) {
-        return comboOrchestrator.bookCombo(scenario);
+    public ComboOrder bookCombo(@RequestParam(defaultValue = "SUCCESS") String scenario) {
+        ComboOrderRequest request = new ComboOrderRequest();
+        request.setCustomerName("Nguyen Van A");
+        request.setFlightNumber("VN-123");
+        request.setFlightPrice(1500000);
+        request.setHotelName("Vinpearl");
+        request.setHotelPrice(2000000);
+        request.setPaymentCard("VISA-1234");
+        request.setScenarioMode(scenario);
+        return orchestrator.executeComboOrder(request);
+    }
+    
+    @GetMapping("/orders")
+    public Map<String, ComboOrder> getAllOrders() {
+        return orchestrator.getAllOrders();
     }
 }
