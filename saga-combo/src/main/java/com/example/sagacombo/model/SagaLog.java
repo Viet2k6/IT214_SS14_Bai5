@@ -14,11 +14,4 @@ public class SagaLog {
     private String message;
     private LocalDateTime timestamp = LocalDateTime.now();
 
-    public SagaLog(String step, String action, SagaStepStatus status, String message) {
-        this.step = step;
-        this.action = action;
-        this.status = status;
-        this.message = message;
-        this.timestamp = LocalDateTime.now();
-    }
 }

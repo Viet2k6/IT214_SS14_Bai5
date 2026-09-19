@@ -22,6 +22,6 @@ public class ComboOrder {
     private List<SagaLog> sagaLogs = new ArrayList<>();
 
     public void addSagaLog(String step, String action, SagaStepStatus status, String message) {
-        this.sagaLogs.add(new SagaLog(step, action, status, message));
+        this.sagaLogs.add(new SagaLog(step, action, status, message, java.time.LocalDateTime.now()));
     }
 }

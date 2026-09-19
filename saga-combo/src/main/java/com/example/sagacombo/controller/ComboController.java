@@ -5,14 +5,13 @@ import com.example.sagacombo.orchestrator.ComboOrderOrchestrator;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/api/combo")
+@RequiredArgsConstructor
 public class ComboController {
     private final ComboOrderOrchestrator orchestrator;
-
-    public ComboController(ComboOrderOrchestrator orchestrator) {
-        this.orchestrator = orchestrator;
-    }
 
     @PostMapping("/book")
     public ComboOrder bookCombo(@RequestParam(defaultValue = "SUCCESS") String scenario) {

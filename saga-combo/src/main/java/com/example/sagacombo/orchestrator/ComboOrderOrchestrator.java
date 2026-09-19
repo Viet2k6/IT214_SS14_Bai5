@@ -8,7 +8,10 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.*;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class ComboOrderOrchestrator {
     private final FlightService flightService;
     private final HotelService hotelService;
@@ -18,11 +21,6 @@ public class ComboOrderOrchestrator {
     private static final long TIMEOUT_SECONDS = 2;
     private static final int MAX_RETRIES = 1;
 
-    public ComboOrderOrchestrator(FlightService flightService, HotelService hotelService, PaymentService paymentService) {
-        this.flightService = flightService;
-        this.hotelService = hotelService;
-        this.paymentService = paymentService;
-    }
 
     public ComboOrder executeComboOrder(ComboOrderRequest request) {
         String orderId = "ORD-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
